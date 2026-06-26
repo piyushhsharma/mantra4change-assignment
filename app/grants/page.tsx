@@ -69,10 +69,10 @@ export default function GrantsPage() {
       .then((data) => {
         const uniqueGrants = Array.from(
           new Set(data.performance.map((g: GrantPerformance) => g.grantName))
-        );
+        ) as string[];
         const uniqueMonths = Array.from(
           new Set(data.performance.map((g: GrantPerformance) => g.reportingMonth))
-        ).sort();
+        ).sort() as string[];
 
         setGrants(data.performance);
         setMonths(uniqueMonths);
