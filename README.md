@@ -1,10 +1,3 @@
-Fair point — that's a much more concise, "fresher who just wants to communicate clearly" version.
-markdown# PBL Program Intelligence & Grant Reporting Assistant
-
-Built for the Mantra4Change assignment. Takes 3 months of school PBL survey 
-data + grant data and turns it into a filterable dashboard + a grant report 
-generator.
-
 ## Setup
 npm install
 
