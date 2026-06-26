@@ -134,9 +134,9 @@ export default function DashboardPage() {
         return res.json();
       })
       .then((data) => {
-        console.log("[Dashboard] Schools data received:", { 
-          schoolCount: data.data?.length, 
-          kpis: data.kpis 
+        console.log("[Dashboard] Schools data received:", {
+          schoolCount: data.data?.length,
+          kpis: data.kpis,
         });
         setSchoolData(data.data);
         setKpis(data.kpis);
@@ -173,8 +173,12 @@ export default function DashboardPage() {
         });
 
         // Sort by risk severity
-        const riskOrder = { "Critical": 4, "At Risk": 3, "Behind": 2, "On Track": 1 };
-        districtData.sort((a, b) => riskOrder[b.riskStatus as keyof typeof riskOrder] - riskOrder[a.riskStatus as keyof typeof riskOrder]);
+        const riskOrder = { Critical: 4, "At Risk": 3, Behind: 2, "On Track": 1 };
+        districtData.sort(
+          (a, b) =>
+            riskOrder[b.riskStatus as keyof typeof riskOrder] -
+            riskOrder[a.riskStatus as keyof typeof riskOrder]
+        );
 
         setDistrictPerformance(districtData);
 
@@ -198,17 +202,28 @@ export default function DashboardPage() {
 
   const getRiskColor = (riskStatus: string) => {
     switch (riskStatus) {
-      case "On Track": return "#22c55e";
-      case "Behind": return "#eab308";
-      case "At Risk": return "#f97316";
-      case "Critical": return "#ef4444";
-      default: return "#94a3b8";
+      case "On Track":
+        return "#22c55e";
+      case "Behind":
+        return "#eab308";
+      case "At Risk":
+        return "#f97316";
+      case "Critical":
+        return "#ef4444";
+      default:
+        return "#94a3b8";
     }
   };
 
-  const renderDelta = (delta: Delta | null) => {
+  // FIX: accepts undefined as well as null, since `deltas?.field` can be undefined
+  const renderDelta = (delta: Delta | null | undefined) => {
     if (!delta) return null;
-    const color = delta.direction === "up" ? "text-green-600" : delta.direction === "down" ? "text-red-600" : "text-gray-500";
+    const color =
+      delta.direction === "up"
+        ? "text-green-600"
+        : delta.direction === "down"
+        ? "text-red-600"
+        : "text-gray-500";
     const arrow = delta.direction === "up" ? "↑" : delta.direction === "down" ? "↓" : "→";
     return (
       <span className={`text-sm ${color}`}>
@@ -232,7 +247,7 @@ export default function DashboardPage() {
           <div className="text-red-600 text-lg font-semibold mb-2">Error Loading Dashboard</div>
           <div className="text-slate-600 mb-4">{error}</div>
           <div className="text-sm text-slate-500">
-            Make sure you've run: <code className="bg-slate-200 px-2 py-1 rounded">npm run db:seed</code>
+            Make sure you&apos;ve run: <code className="bg-slate-200 px-2 py-1 rounded">npm run db:seed</code>
           </div>
         </div>
       </div>
@@ -249,10 +264,7 @@ export default function DashboardPage() {
               <h1 className="text-2xl font-bold text-slate-900">Program Dashboard</h1>
               <p className="text-slate-600 text-sm">School-level PBL performance tracking</p>
             </div>
-            <Link
-              href="/"
-              className="text-slate-600 hover:text-slate-900 text-sm"
-            >
+            <Link href="/" className="text-slate-600 hover:text-slate-900 text-sm">
               ← Back to Home
             </Link>
           </div>
@@ -272,7 +284,9 @@ export default function DashboardPage() {
               >
                 <option value="">All Months</option>
                 {filters.months.map((month) => (
-                  <option key={month} value={month}>{month}</option>
+                  <option key={month} value={month}>
+                    {month}
+                  </option>
                 ))}
               </select>
             </div>
@@ -285,7 +299,9 @@ export default function DashboardPage() {
               >
                 <option value="">All Districts</option>
                 {filters.districts.map((district) => (
-                  <option key={district} value={district}>{district}</option>
+                  <option key={district} value={district}>
+                    {district}
+                  </option>
                 ))}
               </select>
             </div>
@@ -298,7 +314,9 @@ export default function DashboardPage() {
               >
                 <option value="">All Blocks</option>
                 {filters.blocks.map((block) => (
-                  <option key={block} value={block}>{block}</option>
+                  <option key={block} value={block}>
+                    {block}
+                  </option>
                 ))}
               </select>
             </div>
@@ -311,7 +329,9 @@ export default function DashboardPage() {
               >
                 <option value="">All Grades</option>
                 {filters.grades.map((grade) => (
-                  <option key={grade} value={grade}>{grade}</option>
+                  <option key={grade} value={grade}>
+                    {grade}
+                  </option>
                 ))}
               </select>
             </div>
@@ -324,7 +344,9 @@ export default function DashboardPage() {
               >
                 <option value="">All Subjects</option>
                 {filters.subjects.map((subject) => (
-                  <option key={subject} value={subject}>{subject}</option>
+                  <option key={subject} value={subject}>
+                    {subject}
+                  </option>
                 ))}
               </select>
             </div>
