@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SchoolResponse {
+  id                        String   @id @default(cuid())
+  reportingMonth            String
+  timestamp                 String
+  schoolName                String
+  schoolCode                String
+  district                  String
+  block                     String
+  pblConducted              Boolean
+  evidenceSubmitted         Boolean
+  classesCovered            String
+  subject                   String
+  enrollClass6              Int
+  attendanceClass6Science   Int
+  attendanceClass6Math      Int
+  enrollClass7              Int
+  attendanceClass7Science   Int
+  attendanceClass7Math      Int
+  enrollClass8              Int
+  attendanceClass8Science   Int
+  attendanceClass8Math      Int
+  totalEnrollment           Int
+  totalAttendance           Int
+  attendanceRate            Float
+  riskStatus                String
+}
+
+model GrantFinance {
+  id                       String  @id @default(cuid())
+  grantId                  String
+  donor                    String
+  grantName                String
+  periodStart              String
+  periodEnd                String
+  coveredDistricts         String
+  reportingMonth           String
+  budgetLine               String
+  approvedBudgetUnits      Int
+  monthlyUtilizedUnits     Int
+  cumulativeUtilizedUnits  Int
+  cumulativeUtilizationRate Float
+  financeNote              String?
+}
+
+model GrantPerformance {
+  id                     String  @id @default(cuid())
+  grantId                String
+  donor                  String
+  grantName              String
+  reportingMonth         String
+  periodEndDate          String
+  reportDueDate          String
+  reportStatus           String
+  coveredDistricts       String
+  sampledSchoolRecords   Int
+  schoolsCompletedPbl    Int
+  pblCompletionRate      Float
+  schoolsWithEvidence    Int
+  evidenceSubmissionRate Float
+  totalEnrollment        Int
+  totalAttendance        Int
+  attendanceRate         Float
+  riskStatus             String
+  milestoneSummary       String?
+  draftReportText        String?
+}
+
+model EvidenceMedia {
+  id              String  @id @default(cuid())
+  recordId        String
+  recordType      String
+  grantId         String
+  donor           String
+  reportingMonth  String
+  district        String
+  title           String
+  summaryOrCaption String
+  fileName        String
+  relativePath    String
+  usageNote       String?
+}
